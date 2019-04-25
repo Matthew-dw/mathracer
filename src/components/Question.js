@@ -3,33 +3,47 @@ import '../css/question.css'
 
 class Question extends React.Component {
     state = {
-        q: this.props.question,
-        answer: false,
+        n1: this.rnum(20) + 1,
+        n2: this.rnum(20) + 1,
+        op: ['+','-'][Math.floor(Math.random() * 2)],
+        attempt: '',
+        correct: null
     }
     
-    render() {
-        let q = this.state.q;
+    rnum(x) {
+        return 1 + Math.floor(Math.random() * x);
+    }
 
-        const checkDigit = (e) => {
-            console.log(this)
-            if (q.correct !== null) return;
-            q.attempt += e.key;
-            let answer = q.answer().toString();
-
-            if (q.attempt === answer) q.correct = true;
-            for (let i = 0; i < q.attempt.length; i++)
-                if (q.attempt[i] !== answer[i]) q.correct = false;
-
-            this.setState({
-                q: q,
-                answer: q.correct
-            })
+    answer() {
+        switch (this.state.op) {
+            case '+': return this.state.n1 + this.state.n2;
+            case '-': return this.state.n1 - this.state.n2;
+            default: return null;
         }
+    }
 
+    handleKey = (e) => {
+        if (this.state.correct !== null) return;
+        if (e.key !== '-' && isNaN(e.key)) return;
+        let answer = this.answer().toString();
+        let attempt = this.state.attempt + e.key
+        this.setState({ attempt: this.state.attempt + e.key })
+
+        if (attempt === answer)
+            this.setState({ correct: true})
+        else 
+            for (let i = 0; i < attempt.length; i++)
+                if (attempt[i] !== this.answer().toString()[i]) 
+                    this.setState({ correct: false})
+        
+        console.log('answer: ' + answer + ' attempt: ' + attempt + ' comparison: ' + (attempt === answer))
+    }
+
+    render() {
         return (
-            <div className="question" onKeyDown={checkDigit} tabIndex="0">
+            <div className={`question ${this.state.correct}`} onKeyDown={ this.handleKey } tabIndex="0">
                 <h1>
-                    {q.operand1} {q.operation} {q.operand2} = {q.attempt}
+                    { this.state.n1 } { this.state.op } { this.state.n2 } = { this.state.attempt }
                 </h1>
             </div>
         )

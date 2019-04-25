@@ -1,23 +1,20 @@
 import React from 'react';
-import GameLogic from '../game';
 import Question from './Question';
 
 export default class Game extends React.Component {
     state = {
-        game: new GameLogic(20, 20),
-        total: 20,
-        answered: [],
-        correct: []
+        questions: this.initialize(20),
+    }
+    initialize(n) {
+        let questions = [];
+        for (let i = 0; i < n; i++)
+            questions.push(<Question />)
+        return questions;
     }
     render() {
         return (
             <div>
-                <Question question={ this.state.game.next() } />
-                { this.state.answered.map((q) => {
-                    return (
-                        <Question question={q} />
-                    )
-                })}
+                { this.state.questions.pop() }
             </div>
         )
     }
