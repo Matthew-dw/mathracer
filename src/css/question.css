@@ -1,5 +1,6 @@
 body { overflow-y: hidden; }
 div:focus {outline:0;}
+.hide { display: none;}
 .game-container {
     display: flex;
     flex-direction: row;
@@ -32,7 +33,7 @@ div:focus {outline:0;}
     margin: 10px;
 }
 .question.active {
-    background: rgb(38, 70, 47);
+    background: rgb(202, 221, 207);
 }
 .question.false {
     border: 2px solid rgb(224, 127, 127);

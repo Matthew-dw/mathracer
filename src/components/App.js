@@ -14,13 +14,17 @@ class App extends Component {
       division: false
     }
   }
+
   mainMenu = () => this.setState({ current: 0 })
   soloPlay = () => this.setState({ current: 1 })
+  join = () => this.setState({ current: 2 })
+  host = () => this.setState({ current: 3 })
 
   modes = [
     <Menu soloPlay={ this.soloPlay } />,
     <Game mainMenu={ this.mainMenu } soloPlay={ this.soloPlay } settings={ this.state.settings } />
   ]
+  
   render() {
     return ( 
       <div>
