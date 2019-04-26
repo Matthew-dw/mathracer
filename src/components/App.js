@@ -4,12 +4,27 @@ import Game from './Game';
 
 class App extends Component {
   state = {
-    current: <Game />
+    current: 0,
+    settings: {
+      size: 10,
+      maxInt: 10,
+      adding: true,
+      subtracting: true,
+      multiplication: false,
+      division: false
+    }
   }
+  mainMenu = () => this.setState({ current: 0 })
+  soloPlay = () => this.setState({ current: 1 })
+
+  modes = [
+    <Menu soloPlay={ this.soloPlay } />,
+    <Game mainMenu={ this.mainMenu } soloPlay={ this.soloPlay } settings={ this.state.settings } />
+  ]
   render() {
     return ( 
       <div>
-        { this.state.current }
+        { this.modes[this.state.current] }
       </div>
      )
   }
