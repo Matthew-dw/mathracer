@@ -1,0 +1,17 @@
+body { overflow-y: hidden; }
+div:focus {outline:0;}
+.hide { display: none;}
+.game-container {
+    display: flex;
+    flex-direction: row;
+    padding-left: 60px;
+    padding-right: 60px;
+    justify-content: space-between;
+    background: rgb(1, 31, 10);
+}
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100vh;
+}

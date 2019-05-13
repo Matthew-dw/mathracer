@@ -1,18 +1,22 @@
 import React from 'react';
 import Question from './Question';
 import GameButtons from './GameButtons'
+import GameStats from './GameStats'
+import '../css/game.css'
 
 export default class Game extends React.Component {
     // State
     state = {
         questions: this.initialize(this.props.settings.size),
         current: this.props.settings.size - 1,
+        time: 0
     }
     input = React.createRef();
 
     // Lifecycle
     componentDidMount() {
         this.input.current.focus();
+        this.interval = setInterval(() => this.setState({ time: this.state.time + 1 }), 1000);
     }
 
     // Methods
@@ -62,12 +66,14 @@ export default class Game extends React.Component {
         this.setState({ questions: questions}) // update question
     }
     reset = () => {
-        console.log(0)
         this.setState({
             questions: this.initialize(this.props.settings.size),
             current: this.props.settings.size - 1,
+            time: 0,
         })
+        this.input.current.focus();
     }
+
     qMargin() {
         let m = { 'marginTop': `${ (this.state.current - 3) * -168}px` }
         if (this.state.current === -1) m = { 'marginTop': `100vh` }
@@ -75,17 +81,15 @@ export default class Game extends React.Component {
     }
 
     render() {
-        
         return (
             <div className='game-container'>
-                
                 <GameButtons 
                     mainMenu={ this.props.mainMenu }
                     restart={ this.reset }
-                    true={this.numcorrect()}
-                    false={this.numfalse()}
+                    true={ this.numcorrect() }
+                    false={ this.numfalse() }
                 />
-
+                
                 <div onKeyDown={ this.handleKey } tabIndex="0" style={ this.qMargin() } ref={this.input} className={`question-container`} >
                     { this.state.questions.map( (q, i) => {
                         return (
@@ -98,9 +102,10 @@ export default class Game extends React.Component {
                     })}
                 </div>
 
-                <div className="sidebar">
-
-                </div>
+                <GameStats 
+                    fill={ (this.props.settings.size - this.state.current - 1) / this.props.settings.size * 100 }
+                    time={ this.state.time }
+                />
             </div>
         )
     }

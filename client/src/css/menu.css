@@ -17,7 +17,7 @@ button { cursor:pointer; }
     height: 100vh;
     background: rgb(1, 31, 10);
 }
-.Menu-letter-container {
+.letter-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -25,7 +25,7 @@ button { cursor:pointer; }
     padding: 100px;
     margin: auto;
 }
-.Menu-letter {
+.letter {
     width: 80px;
     color: white;
     line-height: 80px;
@@ -36,10 +36,7 @@ button { cursor:pointer; }
     rotate: 0deg;
     transition-duration: 1000s;
 }
-.Menu-letter:active {
-    transform: rotate(1000000deg);
-}
-.Menu-button-container {
+.button-container {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -47,7 +44,7 @@ button { cursor:pointer; }
     height: 300px;
     margin: auto;
 }
-.Menu-button {
+.button {
     border: none;
     font-size: 30px;
     color:white;
@@ -57,6 +54,6 @@ button { cursor:pointer; }
     border: 1px solid rgb(170, 230, 188);
     transition: background 0.3s ease-out;
 }
-.Menu-button:hover {
+.button:hover {
     background: rgb(38, 70, 47);
 }
